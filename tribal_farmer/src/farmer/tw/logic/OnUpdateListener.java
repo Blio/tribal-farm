@@ -1,4 +1,4 @@
-package farmer.tw.logic.n;
+package farmer.tw.logic;
 /**
  * 
  */
