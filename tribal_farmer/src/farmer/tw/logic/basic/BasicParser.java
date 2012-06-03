@@ -1,23 +1,23 @@
 /**
  * 
  */
-package farmer.tw.logic.n.basic;
+package farmer.tw.logic.basic;
 
+import android.util.Log;
 import farmer.tw.HtmlEvent;
 import farmer.tw.HtmlObjectListener;
 import farmer.tw.connection.ComunicationController;
 import farmer.tw.connection.url.HtmlObject;
-import farmer.tw.logic.bTable;
 
 /**
  * @author kkalisz
  *
  */
-public abstract class BasicParser<V extends BasicTable<BasicVillageData>> implements HtmlObjectListener
+public abstract class BasicParser<V extends BasicTable> implements HtmlObjectListener
 {
 
 	
-	V mTable;
+	protected V mTable;
 	
 	
 	/**
@@ -27,11 +27,13 @@ public abstract class BasicParser<V extends BasicTable<BasicVillageData>> implem
 	{
 		this.mTable = aTable;
 		ComunicationController.get().mDataReciver.addHtmlObjectListener(this, getRequiredScreen());
+		Log.d(this.getClass().getName(),"utowrzono parser");
 	}
 	
 	@Override
 	public void handleHtml(HtmlEvent aObject)
 	{
+		Log.d(this.getClass().getName(),"zaczynam parsowanie");
 		parseHtml(aObject.getHtmlObject());
 		mTable.fire();
 		

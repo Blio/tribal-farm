@@ -1,9 +1,17 @@
-package farmer.tw.logic.n.concrete;
+package farmer.tw.logic.concrete;
 
-import farmer.tw.logic.n.basic.BasicVillageData;
+import java.io.Serializable;
 
-public class VillageInfoItem extends BasicVillageData{
+import farmer.tw.logic.basic.BasicVillageData;
+
+public class VillageInfoItem extends BasicVillageData implements Serializable{
 	
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int mX;
 	int mY;
 	String mName;
@@ -54,6 +62,11 @@ public class VillageInfoItem extends BasicVillageData{
 		mName = name;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "Village id: "+mVillageId+"  x: "+mX+"  y:"+mY+"  name "+mName;
+	}
 	
 	
 

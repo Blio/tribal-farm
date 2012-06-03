@@ -1,11 +1,11 @@
-package farmer.tw.logic.n.basic;
+package farmer.tw.logic.basic;
 
 public abstract class BasicVillageData {
 	
-	private Long mVillageId;
+	protected Long mVillageId;
 	
 	public Long getID() {
-		return null;
+		return mVillageId;
 	}
 	
 	public BasicVillageData(Long aVillageId) {

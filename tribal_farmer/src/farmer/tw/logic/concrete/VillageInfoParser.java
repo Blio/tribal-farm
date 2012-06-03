@@ -1,37 +1,22 @@
-/**
- * 
- */
-package farmer.tw.logic;
+package farmer.tw.logic.concrete;
 
 import java.util.List;
 
+import android.util.Log;
 
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.Source;
-import farmer.tw.HtmlEvent;
-import farmer.tw.HtmlObjectListener;
 import farmer.tw.connection.url.HtmlObject;
+import farmer.tw.logic.basic.BasicParser;
 
-/**
- * @author kkalisz
- *
- */
-public class Parser_overview_villages extends Parser implements HtmlObjectListener
-{
+public class VillageInfoParser extends BasicParser<VillageInfoTable>{
 
-	/**
-	 * @param aTable
-	 */
-	public Parser_overview_villages(bTable aTable)
-	{
-		super(aTable);	}
+	public VillageInfoParser(VillageInfoTable aTable) {
+		super(aTable);
+	}
 
-	/* (non-Javadoc)
-	 * @see farmer.tw.logic.Parser#parse(farmer.tw.connection.url.HtmlObject)
-	 */
 	@Override
-	public void parse(HtmlObject aObject)
-	{
+	public void parseHtml(HtmlObject aObject) {
 		Source source=new Source(aObject.getHtml());
 		Element el = source.getElementById("production_table");//source.getAllElements("table");
 		if(el==null) return;
@@ -53,14 +38,20 @@ public class Parser_overview_villages extends Parser implements HtmlObjectListen
 						String []aVillage_coords = l2[0].split("\\|");
 						
 						//System.out.println("id "+aVillage_id+" nazwa: "+aVillage_name+" X: "+aVillage_coords[0]+" Y: "+aVillage_coords[1]);
-						bVillageItem aVillageItem = new bVillageItem(aVillage_id, aVillage_coords[0], aVillage_coords[1], aVillage_name);
-						((bVillageTable)mTable).addVillage(aVillageItem);
+						VillageInfoItem aVillageItem = new VillageInfoItem(aVillage_id, aVillage_coords[0], aVillage_coords[1], aVillage_name);
+						this.mTable.put(aVillageItem);
+						Log.d(this.getClass().getName(),"dodano wioske");
 						
 					}
 				}
 			}
 		}
 		
+	}
+
+	@Override
+	public String getRequiredScreen() {
+		return "overview_villages";
 	}
 
 }

@@ -1,22 +1,17 @@
 package farmer.tw;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Iterator;
 
 import tribal.bng.farmer.R;
-
-import farmer.tw.connection.ComunicationController;
-import farmer.tw.logic.Parser_overview_villages;
-import farmer.tw.logic.TableProvider;
-import farmer.tw.logic.bUnitItem;
-import farmer.tw.logic.bUnitTable;
-import farmer.tw.logic.bVillageItem;
-import farmer.tw.logic.bVillageTable;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
+import farmer.tw.connection.ComunicationController;
+import farmer.tw.logic.OnUpdateListener;
+import farmer.tw.logic.TableProvider;
+import farmer.tw.logic.concrete.VillageInfoItem;
+import farmer.tw.logic.concrete.VillageInfoTable;
 
 public class Farmer2Activity extends Activity
 {
@@ -34,9 +29,21 @@ public class Farmer2Activity extends Activity
 		
 		TableProvider.creator();
 		
-//		TableProvider.getTable(bVillageTable.getTableName()).addNewDataListener(new newDataListener()
+		TableProvider.getTable(VillageInfoTable.getTableName()).addNewDataListener(new OnUpdateListener() {
+			
+			@Override
+			public void OnUpdate() {
+				VillageInfoTable vTable = (VillageInfoTable) TableProvider.getTable(VillageInfoTable.getTableName());
+				Log.d("KKALISZ","size "+vTable.size());
+				Iterator<VillageInfoItem> it = vTable.getIterator();
+				while(it.hasNext())
+				{
+					Log.d("KKALISZ",it.next().toString());
+				}
+			}
+		});
 //		{
-//			
+			
 //			@Override
 //			public void OnNewData()
 //			{

@@ -1,40 +1,23 @@
-/**
- * 
- */
-package farmer.tw.logic;
+package farmer.tw.logic.concrete;
 
 import java.util.HashMap;
 import java.util.List;
 
-
 import net.htmlparser.jericho.Source;
 import net.htmlparser.jericho.StartTag;
 import net.htmlparser.jericho.Tag;
-import farmer.tw.HtmlObjectListener;
 import farmer.tw.connection.url.HtmlObject;
+import farmer.tw.logic.basic.BasicParser;
 
-/**
- * @author kkalisz
- *
- */
-public class Parser_place extends Parser implements HtmlObjectListener
-{
+public class VillageUnitsActiveParser extends BasicParser<VillageUnitsActiveTable>{
 
-	/**
-	 * @param aTable
-	 */
-	public Parser_place(bTable aTable)
-	{
+	
+	public VillageUnitsActiveParser(VillageUnitsActiveTable aTable) {
 		super(aTable);
-		// TODO Auto-generated constructor stub
 	}
-
-	/* (non-Javadoc)
-	 * @see farmer.tw.logic.Parser#parse(farmer.tw.connection.url.HtmlObject)
-	 */
+	
 	@Override
-	public void parse(HtmlObject aObject)
-	{
+	public void parseHtml(HtmlObject aObject) {
 		Source source=new Source(aObject.getHtml());
 		HashMap<String, Integer> units = new HashMap<String, Integer>();
 		List<? extends StartTag>  st = source.getAllStartTags("input");
@@ -52,7 +35,15 @@ public class Parser_place extends Parser implements HtmlObjectListener
 				
 			}
 		}
-		((bUnitTable)mTable).addUnits(Long.parseLong(aObject.getUrl().getParameter("village")), new bUnitItem(units));
+		VillageUnitsActiveItem aVillageUnitsItem = new VillageUnitsActiveItem(aObject.getUrl().getParameter("village"), units);
+		mTable.put(aVillageUnitsItem);
+		//((bUnitTable)mTable).addUnits(Long.parseLong(aObject.getUrl().getParameter("village")), new bUnitItem(units));
+		
+	}
+
+	@Override
+	public String getRequiredScreen() {
+		return "place";
 	}
 
 }
