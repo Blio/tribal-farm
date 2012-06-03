@@ -1,8 +1,11 @@
 package farmer.tw.logic.basic;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import android.util.Log;
 
@@ -17,7 +20,7 @@ public class BasicTable <V extends BasicVillageData> extends TreeMap<Long, V>
 	
 
 	// lista listeerów wywo³ywancyh jesli zostana wprowadzine zmiany w tabeli
-	List<OnUpdateListener> mListeners = new ArrayList<OnUpdateListener>();
+	Set<OnUpdateListener> mListeners = new HashSet<OnUpdateListener>();
 	
 	
 

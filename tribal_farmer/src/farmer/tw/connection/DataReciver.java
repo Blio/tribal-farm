@@ -10,8 +10,8 @@ import java.util.Map.Entry;
 import android.util.Log;
 
 import farmer.tw.HtmlEvent;
-import farmer.tw.HtmlObjectListener;
 import farmer.tw.connection.url.HtmlObject;
+import farmer.tw.logic.HtmlObjectListener;
 
 /**
  * @author kkalisz

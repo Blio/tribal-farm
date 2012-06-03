@@ -25,7 +25,7 @@ public class Farmer2Activity extends Activity
 		
 		WebView aWebView = (WebView) findViewById(R.id.webView1);
 		
-		ComunicationController.init(this, aWebView);
+		if(ComunicationController.getComunicationController()==null)ComunicationController.create(this,aWebView);
 		
 		TableProvider.creator();
 		

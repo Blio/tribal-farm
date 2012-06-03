@@ -5,9 +5,9 @@ package farmer.tw.logic.basic;
 
 import android.util.Log;
 import farmer.tw.HtmlEvent;
-import farmer.tw.HtmlObjectListener;
 import farmer.tw.connection.ComunicationController;
 import farmer.tw.connection.url.HtmlObject;
+import farmer.tw.logic.HtmlObjectListener;
 
 /**
  * @author kkalisz
@@ -26,7 +26,7 @@ public abstract class BasicParser<V extends BasicTable> implements HtmlObjectLis
 	public BasicParser(V aTable)
 	{
 		this.mTable = aTable;
-		ComunicationController.get().mDataReciver.addHtmlObjectListener(this, getRequiredScreen());
+		ComunicationController.getComunicationController().mDataReciver.addHtmlObjectListener(this, getRequiredScreen());
 		Log.d(this.getClass().getName(),"utowrzono parser");
 	}
 	

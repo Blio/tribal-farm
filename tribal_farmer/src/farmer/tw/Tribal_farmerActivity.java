@@ -1,5 +1,6 @@
 package farmer.tw;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 import farmer.tw.connection.ComunicationController;
@@ -15,54 +16,72 @@ import tribal.bng.farmer.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.webkit.WebView;
 
 public class Tribal_farmerActivity extends Activity {
     /** Called when the activity is first created. */
+	WebView aWebView;
+	
+	
+	private static final int MENU_FARM_SINGLE = 0;
+	
+	private static final int MENU_FARM_GROUP = 0;
+	
+	private static final int MENU_FARM_ALL = 0;
+	
+	private static final int MENU_EDIT_FARMS = 0;
+	
+	private static final int MENU_START_AUTO_FARM = 0;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-		
-		WebView aWebView = (WebView) findViewById(R.id.webView1);
-		
-		ComunicationController.init(this, aWebView);
-		
-		TableProvider.creator();
-		
-		TableProvider.getTable(VillageInfoTable.getTableName()).addNewDataListener(new OnUpdateListener() {
-			
-			@Override
-			public void OnUpdate() {
-				VillageInfoTable vTable = (VillageInfoTable) TableProvider.getTable(VillageInfoTable.getTableName());
-				vTable.showTable();
-
-			}
-		});
-		
-		TableProvider.getTable(VillageUnitsActiveTable.getTableName()).addNewDataListener(new OnUpdateListener() {
-			
-			@Override
-			public void OnUpdate() {
-				VillageUnitsActiveTable vTable = (VillageUnitsActiveTable) TableProvider.getTable(VillageUnitsActiveTable.getTableName());
-				vTable.showTable();
-
-			}
-		});
-		
-		//VillageInfoTable vt = new VillageInfoTable();
-		//vt.put(new VillageInfoItem((long)12, 12, 12, "ww"));
-		
-//		BasicTable<BasicVillageData> ff= new BasicTable<BasicVillageData>();
-//		ff.put(new BasicVillageData((long) 123) {
-//		});
-		
-		
-		
-		
-		
-		aWebView.loadUrl("http://www.plemiona.pl/");
         
+        aWebView = (WebView) findViewById(R.id.webView1);
+        if(savedInstanceState!=null)
+        {
+        	aWebView.restoreState(savedInstanceState);
+        	ComunicationController.create(this,aWebView);
+        }
+        else
+        {
+        	ComunicationController.create(this,aWebView);
+        	String mServer = getIntent().getStringExtra("server");
+    		ComunicationController.getComunicationController().loadUrl("http://"+mServer);
+        }
         
+        TableProvider.creator();
+     
     }
+    
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) 
+    {
+    	aWebView.saveState(savedInstanceState);
+    	super.onSaveInstanceState(savedInstanceState);
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, 1, 0, "menu1");
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.vibrate:
+//            case R.id.dont_vibrate:
+//                if (item.isChecked()) item.setChecked(false);
+//                else item.setChecked(true);
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+    	return true;
+    }
+    
 }
