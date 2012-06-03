@@ -25,10 +25,16 @@ public class TableProvider
 	public static void creator()
 	{
 		//List <Class<? implements bTable>> mClassList = new ArrayList<Class<bTable>>();
-		List<Class<? extends BasicTable>> mClassList = new ArrayList<Class<? extends BasicTable>>();
-		
-		mTables.put(VillageInfoTable.getTableName(), new VillageInfoTable());
-		mTables.put(VillageUnitsActiveTable.getTableName(), new VillageUnitsActiveTable());
+		if(mTables.size()==0)
+		{
+			mTables.put(VillageInfoTable.getTableName(), new VillageInfoTable());
+			mTables.put(VillageUnitsActiveTable.getTableName(), new VillageUnitsActiveTable());
+		}
+		else
+		{
+			for (BasicTable element : mTables.values()) {
+			}
+		}
 		//mClassList.add(VillageInfoTable.class);
 //		mClassList.add(VillageInfoTable.class);
 //		mClassList.add(VillageUnitsActiveTable.class);
